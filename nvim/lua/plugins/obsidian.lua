@@ -9,7 +9,7 @@ return {
     workspaces = {
       {
         name = "personal",
-        path = "~/Documents/private/obsidian",  -- あなたの Obsidian vault のパスに変更
+        path = "~/ghq/github.com/saeeeeru/obsidian",  -- あなたの Obsidian vault のパスに変更
       },
     },
     -- daily notes の設定
