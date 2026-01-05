@@ -17,7 +17,7 @@ return {
           nav_right = { "<c-w>l", "nav_right", expr = true, desc = "navigate to the right window" },
         },
       },
-      mux = { backend = "tmux", enabled = false },
+      mux = { backend = "tmux", enabled = true },
     },
   },
   keys = {
