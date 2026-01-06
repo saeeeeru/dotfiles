@@ -5,6 +5,10 @@ lazy = false, -- for dashboard
 ---@type snacks.Config
 opts = {
 scratch = { enable = true },
+notifier = {
+  enabled = true,
+  timeout = 3000, -- default timeout in ms
+},
 styles = {
 scratch = {
   wo = {
