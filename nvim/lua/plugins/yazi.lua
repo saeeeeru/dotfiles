@@ -25,6 +25,7 @@ return {
     open_for_directories = false,
     keymaps = {
       show_help = '<f1>',
+      copy_relative_path_to_selected_file = '<c-y>',
     },
   },
 }
