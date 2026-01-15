@@ -102,3 +102,14 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Claude Code aliases
+alias c='claude'
+alias cc='claude -c'  # Continue last conversation
+alias cr='claude -r'  # Resume recent conversation
+alias ch='claude --chrome'
+alias cy='claude --dangerously-skip-permissions'  # YOLO mode - use with caution!
+
+# aqua - Declarative CLI Version Manager
+export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
+export AQUA_GLOBAL_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua.yaml"

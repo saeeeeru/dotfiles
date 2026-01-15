@@ -31,6 +31,13 @@ return {
           },
         },
       },
+      pickers = {
+        find_files = {
+          hidden = true, -- 隠しファイルを表示
+          -- .gitで管理されているファイルのみを表示したい場合は以下をコメントアウト
+          -- find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
+        },
+      },
     }
   end,
 }

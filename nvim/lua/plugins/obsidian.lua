@@ -37,5 +37,31 @@ return {
   config = function(_, opts)
     require("obsidian").setup(opts)
     vim.opt.conceallevel = 2
+
+    -- Load markdown link handler
+    local markdown_links = require("config.markdown-links")
+
+    -- Set up keymaps for markdown files
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "markdown",
+      callback = function()
+        local bufnr = vim.api.nvim_get_current_buf()
+
+        -- Keymap: gx to open link under cursor
+        vim.keymap.set("n", "gx", function()
+          markdown_links.open_link()
+        end, { buffer = bufnr, desc = "Open link under cursor" })
+
+        -- Keymap: <CR> (Enter) to open link under cursor
+        vim.keymap.set("n", "<CR>", function()
+          markdown_links.open_link()
+        end, { buffer = bufnr, desc = "Open link under cursor" })
+
+        -- Keymap: Double-click to open link
+        vim.keymap.set("n", "<2-LeftMouse>", function()
+          markdown_links.open_link()
+        end, { buffer = bufnr, desc = "Open link with double-click" })
+      end,
+    })
   end,
 }
