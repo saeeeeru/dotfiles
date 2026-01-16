@@ -1,0 +1,46 @@
+# Ghostty Configuration
+
+# Quick Terminal Settings
+# クイックターミナルをグローバルキーバインドで切り替え
+# macOSの場合、システム設定 > プライバシーとセキュリティ > アクセシビリティ で権限を付与する必要があります
+keybind = global:cmd+backquote=toggle_quick_terminal
+
+# クイックターミナルのサイズ設定（高さ50%、幅100%）
+quick-terminal-size = 50%,100%
+
+# クイックターミナルの表示位置
+quick-terminal-position = top
+
+# Split/Panel Resize Keybindings
+# パネルを上方向に10px拡大
+keybind = ctrl+shift+up=resize_split:up,10
+
+# パネルを下方向に10px拡大
+keybind = ctrl+shift+down=resize_split:down,10
+
+# パネルを左方向に10px拡大
+keybind = ctrl+shift+left=resize_split:left,10
+
+# パネルを右方向に10px拡大
+keybind = ctrl+shift+right=resize_split:right,10
+
+# すべてのスプリットのサイズを均等にする
+keybind = ctrl+shift+e=equalize_splits
+
+# Window Settings
+# ウィンドウの初期サイズ（文字数で指定）
+window-width = 120
+window-height = 35
+
+# Theme and Appearance
+# フォント設定（お好みに応じて変更してください）
+# font-family = "JetBrains Mono"
+# font-size = 14
+
+# その他の便利な設定
+# カーソルスタイル
+# cursor-style = block
+# cursor-style-blink = true
+
+# タブの表示
+# window-decoration = true

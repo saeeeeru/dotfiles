@@ -8,6 +8,7 @@ Personal configuration files for development environment.
 - `zsh/` - Zsh configuration with Oh My Zsh
 - `tmux/` - Tmux configuration
 - `lazygit/` - Lazygit configuration
+- `ghostty/` - Ghostty terminal emulator configuration
 
 ## Setup
 
@@ -31,12 +32,21 @@ ln -sf ~/ghq/github.com/saeeeeru/dotfiles/tmux/.tmux.conf ~/.tmux.conf
 ln -sf ~/ghq/github.com/saeeeeru/dotfiles/lazygit/config.yml ~/.config/lazygit/config.yml
 ```
 
+### Ghostty
+```bash
+mkdir -p ~/.config/ghostty
+ln -sf ~/ghq/github.com/saeeeeru/dotfiles/ghostty/config ~/.config/ghostty/config
+```
+
+**macOS権限設定:** クイックターミナルのグローバルキーバインドを使用する場合は、システム設定 > プライバシーとセキュリティ > アクセシビリティ でGhosttyを有効化してください。
+
 ## Prerequisites
 
 - [Oh My Zsh](https://ohmyz.sh/)
 - [Neovim](https://neovim.io/)
 - [Tmux](https://github.com/tmux/tmux)
 - [Lazygit](https://github.com/jesseduffield/lazygit)
+- [Ghostty](https://ghostty.org/)
 
 ### Oh My Zsh plugins used
 - git
