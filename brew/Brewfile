@@ -1,0 +1,28 @@
+# Homebrew Bundle - https://github.com/Homebrew/homebrew-bundle
+
+# Taps
+tap "homebrew/bundle"
+tap "aquaproj/aqua"
+
+# CLI Tools
+brew "neovim"
+brew "tmux"
+brew "lazygit"
+brew "gh"
+brew "ghq"
+brew "fzf"
+brew "ripgrep"
+brew "fd"
+brew "bat"
+brew "eza"
+brew "aquaproj/aqua/aqua"
+
+# Development
+brew "git"
+brew "node"
+brew "go"
+
+# Cask (macOS GUI Apps)
+# cask "wezterm"
+# cask "raycast"
+# cask "docker"

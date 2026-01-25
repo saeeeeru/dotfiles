@@ -4,12 +4,19 @@ Personal configuration files for development environment.
 
 ## Contents
 
+- `brew/` - Homebrew configuration (Brewfile)
 - `nvim/` - Neovim configuration
 - `zsh/` - Zsh configuration with Oh My Zsh
 - `tmux/` - Tmux configuration
 - `lazygit/` - Lazygit configuration
 
 ## Setup
+
+### Homebrew
+```bash
+ln -sf ~/ghq/github.com/saeeeeru/dotfiles/brew/Brewfile ~/.Brewfile
+brew bundle --global
+```
 
 ### Neovim
 ```bash
@@ -33,6 +40,7 @@ ln -sf ~/ghq/github.com/saeeeeru/dotfiles/lazygit/config.yml ~/.config/lazygit/c
 
 ## Prerequisites
 
+- [Homebrew](https://brew.sh/)
 - [Oh My Zsh](https://ohmyz.sh/)
 - [Neovim](https://neovim.io/)
 - [Tmux](https://github.com/tmux/tmux)
