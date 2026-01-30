@@ -2,14 +2,13 @@
 
 git:
   branchPrefix: "saeeeeru/"
-  paging:
-    externalDiffCommand: "difft --color=always"
+  pagers:
+    - externalDiffCommand: "difft --color=always"
   mainBranches:
     - "main"
     - "master"
     - "develop"
   parseEmoji: true
-
 gui:
   nerdFontsVersion: "3"
   border: "single"
@@ -35,13 +34,10 @@ gui:
       - "#c6d0f5"
     searchingActiveBorderColor:
       - "#e5c890"
-
 os:
   editPreset: "nvim"
-
 confirmOnQuit: true
 quitOnTopLevelReturn: true
-
 customCommands:
   - key: "<c-s>"
     context: "global"
