@@ -15,11 +15,13 @@ return {
       diagnostic = true,
       gitsigns = true,
       handle = true,
-      search = true,
+      search = false,
     },
   },
   config = function(_, opts)
     require("scrollbar").setup(opts)
-    require("scrollbar.handlers.gitsigns").setup()
+    pcall(function()
+      require("scrollbar.handlers.gitsigns").setup()
+    end)
   end,
 }

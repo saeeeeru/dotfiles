@@ -77,9 +77,5 @@ return {
       end,
     })
 
-    -- scrollbar integration
-    if package.loaded["scrollbar"] then
-      require("scrollbar.handlers.gitsigns").setup()
-    end
   end,
 }
