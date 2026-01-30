@@ -1,4 +1,2 @@
--- clear statusline
-vim.opt.laststatus = 0
-vim.opt.statusline = "─"
-vim.opt.fillchars:append({ stl = "─", stlnc = "─" })
+-- statusline is handled by lualine.nvim
+vim.opt.laststatus = 3

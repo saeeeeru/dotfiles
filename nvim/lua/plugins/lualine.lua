@@ -1,24 +1,27 @@
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
+  lazy = false,
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "lewis6991/gitsigns.nvim",
   },
+  init = function()
+    vim.opt.laststatus = 3
+  end,
   opts = {
     options = {
       theme = "auto",
       globalstatus = true,
-      component_separators = { left = "", right = "" },
-      section_separators = { left = "", right = "" },
+      component_separators = "",
+      section_separators = "",
     },
     sections = {
-      lualine_a = { "mode" },
+      lualine_a = {},
       lualine_b = {
         { "branch", icon = "" },
         {
           "diff",
-          symbols = { added = " ", modified = " ", removed = " " },
+          symbols = { added = "+", modified = "~", removed = "-" },
         },
       },
       lualine_c = {
@@ -28,10 +31,11 @@ return {
         {
           "diagnostics",
           sources = { "nvim_diagnostic" },
-          symbols = { error = " ", warn = " ", info = " ", hint = " " },
+          symbols = { error = "E", warn = "W", info = "I", hint = "H" },
         },
+        "filetype",
       },
-      lualine_y = { "filetype" },
+      lualine_y = {},
       lualine_z = { "location" },
     },
     inactive_sections = {
