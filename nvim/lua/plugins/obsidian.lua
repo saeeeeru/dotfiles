@@ -24,19 +24,13 @@ return {
       date_format = "%Y-%m-%d",
       time_format = "%H:%M",
     },
-    -- UI を有効にして conceallevel を自動設定
+    -- UI を無効化して render-markdown.nvim に任せる
     ui = {
-      enable = true,
-      checkboxes = {
-        [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-        ["x"] = { char = "", hl_group = "ObsidianDone" },
-      },
+      enable = false,
     },
   },
-  -- markdown ファイルで conceallevel を設定
   config = function(_, opts)
     require("obsidian").setup(opts)
-    vim.opt.conceallevel = 2
 
     -- Load markdown link handler
     local markdown_links = require("config.markdown-links")
