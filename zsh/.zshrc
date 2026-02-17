@@ -125,3 +125,11 @@ alias gcd='gh ghq-cd'
 # aqua - Declarative CLI Version Manager
 export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
 export AQUA_GLOBAL_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua.yaml"
+
+# Cortex CLI completion setup
+fpath+=~/.zsh/completions
+autoload -Uz compinit
+compinit
+
+# Added by the Cortex Code installer.
+export PATH="/Users/saeru.yamamuro.001/.local/bin:$PATH"

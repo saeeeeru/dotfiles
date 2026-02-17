@@ -7,6 +7,12 @@ vim.keymap.set("n", "<Esc>", function()
   end
 end, { silent = true })
 
+-- Normal mode: window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to below window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to above window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
 -- Terminal mode: window navigation
 vim.keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h", { desc = "Move to left window" })
 vim.keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j", { desc = "Move to below window" })
@@ -31,4 +37,10 @@ vim.keymap.set("n", "<leader>yn", function()
   vim.fn.setreg("+", path)
   vim.notify("Copied file name: " .. path)
 end, { desc = "Copy file name" })
+
+-- Window resize with leader key
+vim.keymap.set("n", "<leader>wk", ":resize +8<CR>", { desc = "Increase window height" })
+vim.keymap.set("n", "<leader>wj", ":resize -8<CR>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<leader>wh", ":vertical resize -8<CR>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<leader>wl", ":vertical resize +8<CR>", { desc = "Increase window width" })
 

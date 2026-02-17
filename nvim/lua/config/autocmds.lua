@@ -1,3 +1,15 @@
+-- IME auto-switch for better command mode experience (for US keyboard)
+-- Using osascript (macOS built-in) - no external dependencies required
+vim.api.nvim_create_autocmd({ "InsertLeave", "CmdlineLeave" }, {
+	pattern = "*",
+	callback = function()
+		-- Send key code 102 (Eisu/English key) to disable IME
+		-- Using JavaScript for AppleScript is more reliable than AppleScript syntax
+		vim.fn.system([[osascript -l JavaScript -e 'Application("System Events").keyCode(102)']])
+	end,
+	desc = "Auto-disable IME when leaving insert mode",
+})
+
 -- Autocmds for markdown files
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown",

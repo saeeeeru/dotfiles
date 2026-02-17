@@ -18,6 +18,8 @@ return {
         changedelete = { text = "▎" },
         untracked = { text = "▎" },
       },
+      -- スクロール高速化のため更新頻度を抑制
+      update_debounce = 200,  -- デフォルト100msから200msに変更
       current_line_blame = false,
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
