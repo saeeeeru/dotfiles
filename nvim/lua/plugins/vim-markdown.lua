@@ -23,11 +23,8 @@ return {
 		-- Enable strikethrough
 		vim.g.vim_markdown_strikethrough = 1
 
-		-- Disable folding (optional, uncomment if you want folding)
-		vim.g.vim_markdown_folding_disabled = 1
-
-		-- Set header folding level (if folding is enabled)
-		-- vim.g.vim_markdown_folding_level = 2
+		-- Set folding level (higher = more expanded by default)
+		vim.g.vim_markdown_folding_level = 6
 
 		-- Follow anchor links
 		vim.g.vim_markdown_follow_anchor = 1
