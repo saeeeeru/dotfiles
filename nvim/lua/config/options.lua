@@ -10,6 +10,9 @@ vim.opt.ttimeoutlen = 10          -- キーコードのタイムアウト
 vim.opt.redrawtime = 1500         -- 構文ハイライトのタイムアウト
 vim.opt.regexpengine = 1          -- 旧正規表現エンジンを使用(場合によっては高速)
 
+-- 行末の1文字先まで移動可能にする
+vim.opt.virtualedit = "onemore"
+
 -- スクロール時のコンテキスト行数
 vim.opt.scrolloff = 8             -- カーソル上下に常に8行表示
 vim.opt.sidescrolloff = 8         -- カーソル左右に常に8列表示

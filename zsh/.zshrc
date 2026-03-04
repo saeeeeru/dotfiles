@@ -112,6 +112,7 @@ alias cc='claude -c'  # Continue last conversation
 alias cr='claude -r'  # Resume recent conversation
 alias ch='claude --chrome'
 alias cy='claude --dangerously-skip-permissions'  # YOLO mode - use with caution!
+alias cry='claude -r --dangerously-skip-permissions'  # Resume + YOLO mode
 
 # lazygit alias
 alias lg='lazygit'
