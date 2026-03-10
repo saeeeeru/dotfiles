@@ -11,6 +11,7 @@ keys = {
 ---@type snacks.Config
 opts = {
 scratch = { enable = true },
+open = { enabled = true },
 notifier = {
   enabled = true,
   timeout = 3000, -- default timeout in ms
