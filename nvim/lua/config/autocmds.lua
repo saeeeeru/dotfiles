@@ -10,6 +10,15 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "CmdlineLeave" }, {
 	desc = "Auto-disable IME when leaving insert mode",
 })
 
+-- Python / SQL はデフォルトで全折りたたみ
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "python", "sql" },
+	callback = function()
+		vim.opt_local.foldlevel = 0
+	end,
+	desc = "Fold all on open for python/sql",
+})
+
 -- Autocmds for markdown files
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown",
