@@ -5,6 +5,7 @@ tap "homebrew/bundle"
 tap "aquaproj/aqua"
 
 # CLI Tools
+brew "chezmoi"
 brew "neovim"
 brew "tmux"
 brew "lazygit"

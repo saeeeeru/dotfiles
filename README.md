@@ -1,61 +1,38 @@
 # dotfiles
 
-Personal configuration files for development environment.
-
-## Contents
-
-- `brew/` - Homebrew configuration (Brewfile)
-- `nvim/` - Neovim configuration
-- `zsh/` - Zsh configuration with Oh My Zsh
-- `tmux/` - Tmux configuration
-- `lazygit/` - Lazygit configuration
+Personal configuration files managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Setup
 
-### Homebrew
+### New machine
+
 ```bash
-ln -sf ~/ghq/github.com/saeeeeru/dotfiles/brew/Brewfile ~/.Brewfile
+# 1. Homebrew インストール
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 2. chezmoi インストール
+brew install chezmoi
+
+# 3. dotfiles を clone して apply（ghqパスに配置）
+chezmoi init --apply --source ~/ghq/github.com/saeeeeru/dotfiles https://github.com/saeeeeru/dotfiles
+
+# 4. Homebrew パッケージ一括インストール
 brew bundle --global
 ```
 
-### Neovim
+## Daily usage
+
 ```bash
-ln -sf ~/ghq/github.com/saeeeeru/dotfiles/nvim ~/.config/nvim
+chezmoi add ~/.zshrc    # ホーム側の変更をsourceに取り込む
+chezmoi apply           # source側の変更をホームに反映
+chezmoi diff            # 差分確認
+chezmoi edit ~/.zshrc   # source側を直接編集
 ```
 
-### Zsh
-```bash
-ln -sf ~/ghq/github.com/saeeeeru/dotfiles/zsh/.zshrc ~/.zshrc
-```
+## Contents
 
-### Tmux
-```bash
-ln -sf ~/ghq/github.com/saeeeeru/dotfiles/tmux/.tmux.conf ~/.tmux.conf
-```
-
-### Lazygit
-```bash
-ln -sf ~/ghq/github.com/saeeeeru/dotfiles/lazygit/config.yml ~/.config/lazygit/config.yml
-```
-
-## Prerequisites
-
-- [Homebrew](https://brew.sh/)
-- [Oh My Zsh](https://ohmyz.sh/)
-- [Neovim](https://neovim.io/)
-- [Tmux](https://github.com/tmux/tmux)
-- [Lazygit](https://github.com/jesseduffield/lazygit)
-
-### Oh My Zsh plugins used
-- git
-- aliases
-- copypath
-- history
-- docker
-- github
-- composer
-- laravel
-- brew
-- zsh-completions
-- zsh-autosuggestions
-- zsh-syntax-highlighting
+- `dot_Brewfile` → `~/.Brewfile`
+- `dot_zshrc` → `~/.zshrc`
+- `dot_config/nvim/` → `~/.config/nvim/`
+- `dot_config/lazygit/` → `~/.config/lazygit/`
+- `dot_config/tmux/` → `~/.config/tmux/`
