@@ -1,8 +1,8 @@
 # Homebrew Bundle - https://github.com/Homebrew/homebrew-bundle
 
 # Taps
-tap "homebrew/bundle"
 tap "aquaproj/aqua"
+tap "FelixKratz/formulae"
 
 # CLI Tools
 brew "chezmoi"
@@ -17,6 +17,7 @@ brew "fd"
 brew "bat"
 brew "eza"
 brew "aquaproj/aqua/aqua"
+brew "FelixKratz/formulae/borders"
 
 # Development
 brew "git"

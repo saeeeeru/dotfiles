@@ -1,0 +1,24 @@
+# Ghostty Configuration
+
+# デスクトップ通知を有効化（OSC 9, OSC 777シーケンスで通知を表示）
+desktop-notifications = true
+
+# Quick Terminal の設定
+# 他のアプリにフォーカスが移っても自動的に隠れないようにする
+quick-terminal-autohide = false
+
+# フォントサイズ
+font-size = 6
+
+# ペイン移動（cmd+h の macOS デフォルト動作を無効化した上で再バインド）
+keybind = cmd+h=unbind
+keybind = cmd+h=goto_split:previous
+keybind = cmd+l=goto_split:next
+
+# スクロール（Neovim 風）
+keybind = cmd+shift+j=scroll_page_lines:1
+keybind = cmd+shift+k=scroll_page_lines:-1
+
+# 非フォーカス split を暗くしてフォーカスを明確にする
+unfocused-split-opacity = 0.5
+split-divider-color = #8bd5ca
