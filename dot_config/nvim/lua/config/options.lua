@@ -7,8 +7,8 @@ vim.opt.ttyfast = true            -- 高速ターミナル接続を前提とし�
 vim.opt.updatetime = 100          -- スワップファイル書き込みとCursorHoldイベントの遅延(デフォルト4000ms)
 vim.opt.timeoutlen = 300          -- キーマッピングのタイムアウト(デフォルト1000ms)
 vim.opt.ttimeoutlen = 10          -- キーコードのタイムアウト
-vim.opt.redrawtime = 1500         -- 構文ハイライトのタイムアウト
-vim.opt.regexpengine = 1          -- 旧正規表現エンジンを使用(場合によっては高速)
+vim.opt.redrawtime = 10000        -- 構文ハイライトのタイムアウト(TypeScript等の複雑なファイル対応)
+vim.opt.regexpengine = 0          -- 正規表現エンジンを自動選択(TypeScriptでは旧エンジンが遅い)
 
 -- 行末の1文字先まで移動可能にする
 vim.opt.virtualedit = "onemore"
