@@ -37,6 +37,16 @@ chezmoi edit ~/.zshrc   # source側を直接編集
 brew services start borders
 ```
 
+### Aerospace の設定が反映されない場合
+
+設定ファイルは chezmoi で同期済みでも、Aerospace が再読み込みしていない場合がある。
+
+```bash
+aerospace reload-config
+```
+
+それでも反映されない場合は Aerospace を再起動する。
+
 ## Contents
 
 - `dot_Brewfile` → `~/.Brewfile`
