@@ -16,7 +16,7 @@ brew "ripgrep"
 brew "fd"
 brew "bat"
 brew "eza"
-brew "aquaproj/aqua/aqua"
+cask "aquaproj/aqua/aqua"
 brew "FelixKratz/formulae/borders"
 
 # Development

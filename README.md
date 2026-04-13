@@ -29,6 +29,14 @@ chezmoi diff            # 差分確認
 chezmoi edit ~/.zshrc   # source側を直接編集
 ```
 
+## Tips
+
+### JankyBorders を有効化する
+
+```bash
+brew services start borders
+```
+
 ## Contents
 
 - `dot_Brewfile` → `~/.Brewfile`
