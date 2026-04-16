@@ -22,3 +22,7 @@ keybind = cmd+shift+k=scroll_page_lines:-1
 # 非フォーカス split を暗くしてフォーカスを明確にする
 unfocused-split-opacity = 0.5
 split-divider-color = #8bd5ca
+
+# フルスクリーントグルを無効化
+keybind = cmd+enter=unbind
+keybind = ctrl+cmd+f=unbind
