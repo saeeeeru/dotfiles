@@ -5,6 +5,9 @@ return {
 		"godlygeek/tabular", -- Required for table formatting
 	},
 	init = function()
+		-- nvim-ufo に折りたたみを委譲
+		vim.g.vim_markdown_folding_disabled = 1
+
 		-- Disable default key mappings (we'll use the navigation ones)
 		vim.g.vim_markdown_no_default_key_mappings = 0
 

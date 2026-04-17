@@ -107,13 +107,12 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Claude Code aliases
-alias c='claude'
+alias c='claude --enable-auto-mode'
 alias cc='claude -c'  # Continue last conversation
-alias cr='claude -r'  # Resume recent conversation
+alias cr='claude -r --enable-auto-mode'  # Resume recent conversation
 alias ch='claude --chrome'
 alias cy='claude --dangerously-skip-permissions'  # YOLO mode - use with caution!
 alias cry='claude -r --dangerously-skip-permissions'  # Resume + YOLO mode
-alias ca='claude --enable-auto-mode'  # Auto mode
 
 # lazygit alias
 alias lg='lazygit'
