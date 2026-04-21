@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "CmdlineLeave" }, {
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "python", "sql" },
 	callback = function()
-		vim.opt_local.foldlevel = 0
+		vim.opt_local.foldlevel = 1
 	end,
 	desc = "Fold all on open for python/sql",
 })
