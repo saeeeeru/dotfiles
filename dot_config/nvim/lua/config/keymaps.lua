@@ -38,6 +38,10 @@ vim.keymap.set("n", "<leader>yn", function()
   vim.notify("Copied file name: " .. path)
 end, { desc = "Copy file name" })
 
+-- H/L: line start/end (gg/G cover file start/end)
+vim.keymap.set({ "n", "v" }, "H", "^", { desc = "Go to first non-blank character" })
+vim.keymap.set({ "n", "v" }, "L", "$", { desc = "Go to end of line" })
+
 -- Window resize with leader key
 vim.keymap.set("n", "<leader>wk", ":resize +8<CR>", { desc = "Increase window height" })
 vim.keymap.set("n", "<leader>wj", ":resize -8<CR>", { desc = "Decrease window height" })
