@@ -108,6 +108,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Claude Code aliases
 alias c='claude --enable-auto-mode'
+alias ca='claude agents'
 alias cc='claude -c'  # Continue last conversation
 alias cr='claude -r --enable-auto-mode'  # Resume recent conversation
 alias ch='claude --chrome'
@@ -122,6 +123,77 @@ alias v='nvim'
 
 # ghq-cd alias
 alias gcd='gh ghq-cd'
+
+worktree_cd() {
+  local current selected target choice
+  local -a entries
+
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Not inside a git worktree" >&2
+    return 1
+  fi
+
+  current=$(git rev-parse --show-toplevel 2>/dev/null) || return 1
+  entries=("${(@f)$(git worktree list --porcelain | awk -v current="$current" '
+    /^worktree / {
+      path = substr($0, 10)
+      branch = "(detached)"
+      next
+    }
+    /^branch refs\/heads\// {
+      branch = substr($0, 19)
+      next
+    }
+    /^detached$/ {
+      branch = "(detached)"
+      next
+    }
+    /^$/ {
+      if (path != "") {
+        prefix = (path == current ? "* " : "  ")
+        printf "%s%s\t%s\n", prefix, branch, path
+      }
+      path = ""
+      branch = ""
+    }
+    END {
+      if (path != "") {
+        prefix = (path == current ? "* " : "  ")
+        if (branch == "") {
+          branch = "(detached)"
+        }
+        printf "%s%s\t%s\n", prefix, branch, path
+      }
+    }
+  ')}")
+
+  if (( ${#entries[@]} == 0 )); then
+    echo "No worktrees found" >&2
+    return 1
+  fi
+
+  if command -v fzf >/dev/null 2>&1; then
+    selected=$(printf '%s\n' "${entries[@]}" | fzf --prompt='worktree > ' --delimiter=$'\t' --with-nth=1)
+  else
+    local i=1
+    echo "Worktrees:"
+    for selected in "${entries[@]}"; do
+      printf ' %d. %s\n' "$i" "${selected%%$'\t'*}"
+      ((i++))
+    done
+    printf 'Select worktree: '
+    read -r choice
+    if [[ "$choice" != <-> ]] || (( choice < 1 || choice > ${#entries[@]} )); then
+      echo "Cancelled" >&2
+      return 1
+    fi
+    selected="${entries[$choice]}"
+  fi
+
+  target="${selected#*$'\t'}"
+  [[ -n "$target" ]] && cd "$target"
+}
+alias wcd='worktree_cd'
 
 # XDG Base Directory
 export XDG_CONFIG_HOME="$HOME/.config"

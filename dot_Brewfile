@@ -24,6 +24,8 @@ brew "git"
 brew "node"
 brew "go"
 
+brew "tak848/tap/ccgate"
+
 # Cask (macOS GUI Apps)
 # cask "wezterm"
 # cask "raycast"
