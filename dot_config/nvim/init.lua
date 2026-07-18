@@ -30,3 +30,5 @@ require("config.autocmds")
 require("config.lazy") -- load plugins
 require("config.highlights")
 
+vim.lsp.enable("dbt_lsp")
+
