@@ -6,6 +6,15 @@
 return {
   filetypes = { "sql", "yaml" },
   root_markers = { "dbt_project.yml" },
+  -- compile 完了までリクエストはキューされ応答されないため、状態を通知で可視化する
+  handlers = {
+    ["dbt/lspCompileStart"] = function()
+      vim.notify("dbt: compile 開始（初回は数分かかる）", vim.log.levels.INFO)
+    end,
+    ["dbt/lspCompileComplete"] = function()
+      vim.notify("dbt: compile 完了 — 補完/gd が使えます", vim.log.levels.INFO)
+    end,
+  },
   cmd = function(dispatchers, config)
     return vim.lsp.rpc.start({
       "dbt", "lsp",
