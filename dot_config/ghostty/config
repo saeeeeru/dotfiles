@@ -15,9 +15,9 @@ keybind = cmd+h=unbind
 keybind = cmd+h=goto_split:previous
 keybind = cmd+l=goto_split:next
 
-# スクロール（Neovim 風）: ctrl+shift+up/down を 3 回送り、全画面アプリ側で 1 行送りに割り当てる（回数 = 行数）
-keybind = cmd+shift+j=text:\x1b[1;6B\x1b[1;6B\x1b[1;6B
-keybind = cmd+shift+k=text:\x1b[1;6A\x1b[1;6A\x1b[1;6A
+# スクロール（Neovim 風）: ctrl+shift+up/down を送り、全画面アプリ側で 1 行送りに割り当てる
+keybind = cmd+shift+j=text:\x1b[1;6B
+keybind = cmd+shift+k=text:\x1b[1;6A
 
 # 非フォーカス split を暗くしてフォーカスを明確にする
 unfocused-split-opacity = 0.5
