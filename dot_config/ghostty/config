@@ -15,9 +15,9 @@ keybind = cmd+h=unbind
 keybind = cmd+h=goto_split:previous
 keybind = cmd+l=goto_split:next
 
-# スクロール（Neovim 風）: PageUp/PageDown を送り、全画面アプリ内でもスクロールさせる
-keybind = cmd+shift+j=text:\x1b[6~
-keybind = cmd+shift+k=text:\x1b[5~
+# スクロール（Neovim 風）: ctrl+shift+up/down を送り、全画面アプリ側で半ページ送りに割り当てる
+keybind = cmd+shift+j=text:\x1b[1;6B
+keybind = cmd+shift+k=text:\x1b[1;6A
 
 # 非フォーカス split を暗くしてフォーカスを明確にする
 unfocused-split-opacity = 0.5
