@@ -89,6 +89,7 @@ Herdr, its Neovim sidebar, the optional diff-review pane, and Claude/Codex integ
 - `prefix`, then `,`: rename the active tab
 - `prefix`, then `↑/↓`: move to the previous/next agent
 - `prefix`, then `u`: fuzzy-find URLs in the active pane's scrollback and open them
+- `prefix`, then `d`: toggle the diff-review pane
 - In Neovim, `<leader>ac`: ask about the current line or selection
 - In Neovim, `<leader>aS`: send queued code annotations to the agent
 
@@ -103,5 +104,7 @@ Open the optional diff-review pane with:
 ```bash
 herdr plugin action invoke open --plugin persiyanov.reviewr
 ```
+
+Or press `prefix`, then `d` to toggle it. The plugin is pinned to v0.44.0 and also opens automatically when Herdr creates or opens a worktree.
 
 The review pane can show the worktree diff, browse/search files, and send line comments to the selected active agent. The official Herdr integrations also let it resume supported Claude Code and Codex sessions after a Herdr server restart. Herdr plugins are community code; inspect the plugin source before installing or updating them.

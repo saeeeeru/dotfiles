@@ -49,5 +49,11 @@ type = "plugin_action"
 command = "fzf-url"
 description = "open URL from pane"
 
+[[keys.command]]
+key = "prefix+d"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"
+description = "toggle diff review pane"
+
 [experimental]
 switch_ascii_input_source_in_prefix = true
