@@ -5,6 +5,13 @@ mouse_capture = false
 status_indicators = "symbols"
 prompt_new_tab_name = false
 agent_panel_sort = "spaces"
+sidebar_width = 32
+sidebar_min_width = 28
+sidebar_max_width = 40
+
+[ui.toast]
+delivery = "herdr"
+delay_seconds = 3
 
 [ui.sidebar.agents]
 rows = [["state_icon", "agent"]]
@@ -22,6 +29,8 @@ row_gap = 0
 prefix = "alt+space"
 edit_scrollback = "prefix+shift+e"
 rename_tab = "prefix+comma"
+move_tab_previous = "prefix+<"
+move_tab_next = "prefix+>"
 previous_agent = "prefix+up"
 next_agent = "prefix+down"
 
