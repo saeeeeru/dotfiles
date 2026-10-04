@@ -26,3 +26,9 @@ split-divider-color = #8bd5ca
 # フルスクリーントグルを無効化
 keybind = cmd+enter=unbind
 keybind = ctrl+cmd+f=unbind
+
+# Allow terminal apps such as Herdr to receive mouse clicks.
+mouse-reporting = true
+
+# Send macOS Option as Alt so Herdr can use Option+Space as its prefix.
+macos-option-as-alt = true

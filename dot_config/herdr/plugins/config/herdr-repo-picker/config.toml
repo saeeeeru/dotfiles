@@ -1,0 +1,2 @@
+# Opening a repo should create a workspace and leave its shell ready for me.
+launch_command = []

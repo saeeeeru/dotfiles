@@ -7,7 +7,6 @@ tap "FelixKratz/formulae"
 # CLI Tools
 brew "chezmoi"
 brew "neovim"
-brew "tmux"
 brew "lazygit"
 brew "gh"
 brew "ghq"
