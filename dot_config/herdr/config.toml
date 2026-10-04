@@ -28,13 +28,13 @@ next_agent = "prefix+down"
 [[keys.command]]
 key = "prefix+e"
 type = "plugin_action"
-command = "herdr-nvim.toggle"
+command = "chmarax.herdr-nvim.toggle"
 description = "toggle Neovim sidebar"
 
 [[keys.command]]
 key = "prefix+f"
 type = "plugin_action"
-command = "herdr-nvim.pick-file"
+command = "chmarax.herdr-nvim.pick-file"
 description = "open file from agent output"
 
 [[keys.command]]

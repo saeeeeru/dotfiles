@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -eu
+
+PATH="${HOME}/.local/bin:${PATH}"
+
+PLUGIN_ID="chmarax.herdr-nvim"
+PLUGIN_SOURCE="ChmaraX/herdr-nvim"
+PLUGIN_REF="v1.1.0"
+
+if ! command -v herdr >/dev/null 2>&1; then
+  exit 0
+fi
+
+PLUGINS="$(herdr plugin list --json)"
+if printf '%s\n' "${PLUGINS}" | grep -Eq '"plugin_id"[[:space:]]*:[[:space:]]*"'"${PLUGIN_ID}"'"'; then
+  exit 0
+fi
+
+herdr plugin install "${PLUGIN_SOURCE}" --ref "${PLUGIN_REF}" --yes
