@@ -88,10 +88,13 @@ Herdr, its Neovim sidebar, the optional diff-review pane, and Claude/Codex integ
 - `prefix`, then `c`: create a tab for another coding session
 - `prefix`, then `,`: rename the active tab
 - `prefix`, then `↑/↓`: move to the previous/next agent
+- `prefix`, then `u`: fuzzy-find URLs in the active pane's scrollback and open them
 - In Neovim, `<leader>ac`: ask about the current line or selection
 - In Neovim, `<leader>aS`: send queued code annotations to the agent
 
 The `prefix`, then `shift+o` picker searches repositories managed by `ghq` and focuses an existing workspace or creates a new one. The repository picker is installed by the chezmoi apply script and pinned to v0.2.0. Its managed plugin config leaves the new workspace at a shell prompt instead of starting Claude automatically. Herdr detects `working`, `blocked`, `done`, and `idle` states. New tabs no longer ask for a name. Claude/Codex sidebar rows show the state icon and agent name on the first line, then the terminal title on the second. Herdr 0.9.3 does not expose the Spaces/Agents divider ratio as a config option; dragging it only changes the current attach and is not persisted.
+
+The URL picker is installed from [`kaar/herdr-fzf-url`](https://github.com/kaar/herdr-fzf-url) by chezmoi. Press `prefix`, then `u` to choose URLs from the active pane's scrollback; Enter opens the selection and Ctrl+Y copies it.
 
 The Neovim sidebar keeps its buffers when hidden and reopened. Agent edits appear in the sidebar; `]r` / `[r` move between edits and `<leader>au` reverts the current agent hunk.
 

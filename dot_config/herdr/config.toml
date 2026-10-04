@@ -43,5 +43,11 @@ type = "plugin_action"
 command = "herdr-repo-picker.open-picker"
 description = "open ghq repository"
 
+[[keys.command]]
+key = "prefix+u"
+type = "plugin_action"
+command = "fzf-url"
+description = "open URL from pane"
+
 [experimental]
 switch_ascii_input_source_in_prefix = true
