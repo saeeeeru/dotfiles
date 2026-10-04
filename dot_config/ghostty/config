@@ -42,3 +42,6 @@ mouse-reporting = true
 
 # Send macOS Option as Alt so Herdr can use Option+Space as its prefix.
 macos-option-as-alt = true
+
+# IME を経由すると Option+Space が素の space になるため、Herdr が alt+space と解釈する ESC+space を直接送る
+keybind = alt+space=text:\x1b\x20
