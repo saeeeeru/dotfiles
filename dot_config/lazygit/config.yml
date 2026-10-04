@@ -43,6 +43,6 @@ customCommands:
     context: "global"
     command: "gh home"
   - key: "<c-r>"
-    command: "git pr"
+    command: "gh pr create --web"
     context: "global"
     loadingText: "Creating pull request on GitHub"
