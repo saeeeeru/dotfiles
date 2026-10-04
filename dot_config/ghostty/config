@@ -3,12 +3,22 @@
 # デスクトップ通知を有効化（OSC 9, OSC 777シーケンスで通知を表示）
 desktop-notifications = true
 
+# 外観
+theme = Catppuccin Macchiato
+font-family = Osaka−等幅
+font-size = 15
+background-opacity = 1.0
+background-blur-radius = 20
+window-decoration = true
+mouse-hide-while-typing = true
+
 # Quick Terminal の設定
 # 他のアプリにフォーカスが移っても自動的に隠れないようにする
 quick-terminal-autohide = false
+quick-terminal-position = bottom
 
-# フォントサイズ
-font-size = 6
+# global: を付けないと Ghostty にフォーカスがある時しか発火しない
+keybind = global:cmd+opt+t=toggle_quick_terminal
 
 # ペイン移動（cmd+h の macOS デフォルト動作を無効化した上で再バインド）
 keybind = cmd+h=unbind
