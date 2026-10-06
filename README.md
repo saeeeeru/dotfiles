@@ -99,6 +99,8 @@ The URL picker is installed from [`kaar/herdr-fzf-url`](https://github.com/kaar/
 
 The Neovim sidebar keeps its buffers when hidden and reopened. Agent edits appear in the sidebar; `]r` / `[r` move between edits and `<leader>au` reverts the current agent hunk.
 
+The sidebar and file picker come from [`saeeeeru/herdr-nvim`](https://github.com/saeeeeru/herdr-nvim), a fork of [`ChmaraX/herdr-nvim`](https://github.com/ChmaraX/herdr-nvim) pinned to `v1.1.0-subagents.1`. The fork also reads Claude Code sub-agent transcripts, so files edited by delegated agents appear in the `prefix`, then `f` picker. The picker only sees files touched through the Edit/Write/Read tools, not through shell commands.
+
 Open the optional diff-review pane with:
 
 ```bash

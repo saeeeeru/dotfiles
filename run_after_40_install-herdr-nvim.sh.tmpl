@@ -4,17 +4,24 @@ set -eu
 
 PATH="${HOME}/.local/bin:${PATH}"
 
+# Fork of ChmaraX/herdr-nvim that also mines Claude Code sub-agent transcripts.
 PLUGIN_ID="chmarax.herdr-nvim"
-PLUGIN_SOURCE="ChmaraX/herdr-nvim"
-PLUGIN_REF="v1.1.0"
+PLUGIN_SOURCE="saeeeeru/herdr-nvim"
+PLUGIN_REF="v1.1.0-subagents.1"
 
 if ! command -v herdr >/dev/null 2>&1; then
   exit 0
 fi
 
-PLUGINS="$(herdr plugin list --json)"
-if printf '%s\n' "${PLUGINS}" | grep -Eq '"plugin_id"[[:space:]]*:[[:space:]]*"'"${PLUGIN_ID}"'"'; then
+INSTALLED="$(herdr plugin list --json | jq -r --arg id "${PLUGIN_ID}" \
+  '.result.plugins[] | select(.plugin_id == $id) | "\(.source.owner)/\(.source.repo)@\(.source.requested_ref)"')"
+
+if [ "${INSTALLED}" = "${PLUGIN_SOURCE}@${PLUGIN_REF}" ]; then
   exit 0
+fi
+
+if [ -n "${INSTALLED}" ]; then
+  herdr plugin uninstall "${PLUGIN_ID}"
 fi
 
 herdr plugin install "${PLUGIN_SOURCE}" --ref "${PLUGIN_REF}" --yes
