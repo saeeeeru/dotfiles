@@ -97,7 +97,7 @@ The `prefix`, then `shift+o` picker searches repositories managed by `ghq` and f
 
 The URL picker is installed from [`kaar/herdr-fzf-url`](https://github.com/kaar/herdr-fzf-url) by chezmoi. Press `prefix`, then `u` to choose URLs from the active pane's scrollback; Enter opens the selection and Ctrl+Y copies it.
 
-The Neovim sidebar keeps its buffers when hidden and reopened. Agent edits appear in the sidebar; `]r` / `[r` move between edits and `<leader>au` reverts the current agent hunk.
+The Neovim sidebar keeps its buffers when hidden and reopened. Uncommitted changes show as gitsigns markers; `]c` / `[c` move between hunks, `<leader>hp` previews one, and `<leader>hr` resets it. These markers do not separate agent edits from your own; use the diff-review pane below to see what an agent changed.
 
 The sidebar and file picker come from [`saeeeeru/herdr-nvim`](https://github.com/saeeeeru/herdr-nvim), a fork of [`ChmaraX/herdr-nvim`](https://github.com/ChmaraX/herdr-nvim) pinned to `v1.1.0-subagents.1`. The fork also reads Claude Code sub-agent transcripts, so files edited by delegated agents appear in the `prefix`, then `f` picker. The picker only sees files touched through the Edit/Write/Read tools, not through shell commands.
 
@@ -107,6 +107,6 @@ Open the optional diff-review pane with:
 herdr plugin action invoke open --plugin persiyanov.reviewr
 ```
 
-Or press `prefix`, then `d` to toggle it. The plugin is pinned to v0.44.0 and also opens automatically when Herdr creates or opens a worktree.
+Or press `prefix`, then `d` to toggle it. The plugin is pinned to v0.44.0 and also opens automatically when Herdr creates or opens a worktree. It reviews the worktree of the focused pane's working directory, so have Claude Code enter a worktree with its EnterWorktree tool rather than `cd` into one from a shell command.
 
 The review pane can show the worktree diff, browse/search files, and send line comments to the selected active agent. The official Herdr integrations also let it resume supported Claude Code and Codex sessions after a Herdr server restart. Herdr plugins are community code; inspect the plugin source before installing or updating them.
