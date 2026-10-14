@@ -1,7 +1,7 @@
 onboarding = false
 
 [ui]
-mouse_capture = false
+mouse_capture = true
 status_indicators = "symbols"
 prompt_new_tab_name = false
 agent_panel_sort = "spaces"
