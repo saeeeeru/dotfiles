@@ -30,12 +30,19 @@ row_gap = 0
 
 [keys]
 prefix = "alt+space"
+new_tab = "prefix+shift+c"
 edit_scrollback = "prefix+shift+e"
 rename_tab = "prefix+comma"
 move_tab_previous = "prefix+<"
 move_tab_next = "prefix+>"
 previous_agent = "prefix+up"
 next_agent = "prefix+down"
+
+[[keys.command]]
+key = "prefix+c"
+type = "shell"
+command = "~/.config/herdr/new-tab-at-root.sh"
+description = "new tab at repository root"
 
 [[keys.command]]
 key = "prefix+e"
