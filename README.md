@@ -13,12 +13,17 @@ Personal configuration files managed with [chezmoi](https://www.chezmoi.io/).
 # 2. chezmoi インストール
 brew install chezmoi
 
-# 3. dotfiles を clone して apply（ghqパスに配置）
-chezmoi init --apply --source ~/ghq/github.com/saeeeeru/dotfiles https://github.com/saeeeeru/dotfiles
+# 3. dotfiles を clone（ghqパスに配置）
+chezmoi init --source ~/ghq/github.com/saeeeeru/dotfiles https://github.com/saeeeeru/dotfiles
 
-# 4. Homebrew パッケージ一括インストール
-brew bundle --global
+# 4. Homebrew パッケージ一括インストール（apply 後に走るスクリプトが jq などを使う）
+brew bundle --file ~/ghq/github.com/saeeeeru/dotfiles/dot_Brewfile
+
+# 5. ホームに反映
+chezmoi apply
 ```
+
+以降は `~/.Brewfile` が置かれるので `brew bundle --global` でよい。
 
 ## Daily usage
 
@@ -80,12 +85,17 @@ aerospace reload-config
 
 - `dot_Brewfile` → `~/.Brewfile`
 - `dot_zshrc` → `~/.zshrc`
+- `dot_hammerspoon/` → `~/.hammerspoon/`
 - `dot_config/aerospace/` → `~/.config/aerospace/`
 - `dot_config/borders/` → `~/.config/borders/`
 - `dot_config/ghostty/` → `~/.config/ghostty/`
-- `dot_config/nvim/` → `~/.config/nvim/`
+- `dot_config/herdr/` → `~/.config/herdr/`
 - `dot_config/lazygit/` → `~/.config/lazygit/`
-Homebrew Bundle は chezmoi の apply 後に `brew bundle --global` で実行する。Aerospace、JankyBorders、Ghostty の設定もこのリポジトリで管理している。
+- `dot_config/nvim/` → `~/.config/nvim/`
+- `dot_config/tmux/` → `~/.config/tmux/`
+- `run_onchange_after_*.sh` は `chezmoi apply` 時に、内容が変わったときだけ走る（tpm、Codex hooks、Herdr とその plugin のインストール）
+
+Aerospace、JankyBorders、Ghostty、tmux の設定もこのリポジトリで管理している。
 
 ## Herdr + Claude Code / Codex
 
