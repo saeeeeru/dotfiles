@@ -75,6 +75,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git aliases copypath history docker gh composer laravel brew zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
 
+# Cortex CLI completion; oh-my-zsh runs compinit, so this must precede it
+fpath+=~/.zsh/completions
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -202,11 +205,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # aqua - Declarative CLI Version Manager
 export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME}/aquaproj-aqua}/bin:$PATH"
 export AQUA_GLOBAL_CONFIG="${XDG_CONFIG_HOME}/aquaproj-aqua/aqua.yaml"
-
-# Cortex CLI completion setup
-fpath+=~/.zsh/completions
-autoload -Uz compinit
-compinit
 
 # Added by the Cortex Code installer.
 export PATH="/Users/saeru.yamamuro.001/.local/bin:$PATH"
