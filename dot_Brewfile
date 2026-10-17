@@ -3,10 +3,12 @@
 # Taps
 tap "aquaproj/aqua"
 tap "FelixKratz/formulae"
+tap "nikitabobko/tap"
 
 # CLI Tools
 brew "chezmoi"
 brew "neovim"
+brew "tmux"
 brew "lazygit"
 brew "gh"
 brew "ghq"
@@ -15,6 +17,7 @@ brew "ripgrep"
 brew "fd"
 brew "bat"
 brew "eza"
+brew "jq"
 cask "aquaproj/aqua/aqua"
 brew "FelixKratz/formulae/borders"
 
@@ -26,7 +29,10 @@ brew "go"
 brew "tak848/tap/ccgate"
 
 # Cask (macOS GUI Apps)
+cask "ghostty"
+cask "nikitabobko/tap/aerospace"
 cask "hammerspoon"
+cask "font-plemol-jp-nf"
 # cask "wezterm"
 # cask "raycast"
 # cask "docker"
