@@ -67,6 +67,15 @@ aerospace reload-config
 
 それでも反映されない場合は Aerospace を再起動する。
 
+### Hammerspoon でディスプレイを自動設定する
+
+`~/.hammerspoon/init.lua` が、ディスプレイの抜き差しのたびに次を行う。
+
+- 全ディスプレイを、HiDPI かつ幅 2304 以下の中で作業領域が最も広い解像度にする（27 インチ 4K は 2304x1296、MacBook 内蔵は 1800x1169）
+- 外部ディスプレイが 1 台なら、内蔵ディスプレイの真上（左右中央）に置く
+
+手動で再適用するときは `ctrl+alt+cmd+d`。初回は Hammerspoon を起動し、ログイン時に起動されることを確認する。
+
 ## Contents
 
 - `dot_Brewfile` → `~/.Brewfile`

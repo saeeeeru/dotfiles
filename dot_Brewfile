@@ -26,6 +26,7 @@ brew "go"
 brew "tak848/tap/ccgate"
 
 # Cask (macOS GUI Apps)
+cask "hammerspoon"
 # cask "wezterm"
 # cask "raycast"
 # cask "docker"
