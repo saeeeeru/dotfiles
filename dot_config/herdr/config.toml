@@ -69,6 +69,12 @@ command = "fzf-url"
 description = "open URL from pane"
 
 [[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "notification-picker.open"
+description = "pick agent by completion order"
+
+[[keys.command]]
 key = "prefix+d"
 type = "plugin_action"
 command = "persiyanov.reviewr.toggle"

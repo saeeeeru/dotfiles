@@ -1,0 +1,21 @@
+id = "notification-picker"
+name = "notification-picker"
+version = "0.1.0"
+description = "Popup that lists agents in completion order and focuses the picked tab."
+min_herdr_version = "0.7.4"
+platforms = ["linux", "macos"]
+
+[[panes]]
+id = "picker"
+title = "Notifications"
+placement = "popup"
+width = "80%"
+height = "60%"
+command = ["/bin/sh", "picker.sh"]
+
+[[actions]]
+id = "open"
+platforms = ["linux", "macos"]
+title = "Open notification picker"
+description = "Show agents in completion order as a centered popup pane."
+command = ["/bin/sh", "-c", "exec \"${HERDR_BIN_PATH:-herdr}\" plugin pane open --plugin \"${HERDR_PLUGIN_ID:-notification-picker}\" --entrypoint picker"]

@@ -35,8 +35,21 @@ ensure_plugin() {
   fi
 }
 
+# Links a plugin kept in this repository unless one with the same id is installed.
+ensure_local_plugin() {
+  plugin_id="$1"
+  path="$2"
+
+  if printf '%s' "${INSTALLED}" | jq -e --arg id "${plugin_id}" '.result.plugins[] | select(.plugin_id == $id)' >/dev/null; then
+    return 0
+  fi
+
+  herdr plugin link "${path}"
+}
+
 # chmarax.herdr-nvim comes from a fork that also mines Claude Code sub-agent transcripts.
 ensure_plugin "herdr-repo-picker" "mayaton/herdr-repo-picker" "v0.2.0"
 ensure_plugin "kaar.fzf-url" "kaar/herdr-fzf-url" ""
 ensure_plugin "chmarax.herdr-nvim" "saeeeeru/herdr-nvim" "v1.1.0-subagents.1"
 ensure_plugin "persiyanov.reviewr" "persiyanov/herdr-reviewr" "v0.44.0"
+ensure_local_plugin "notification-picker" "${HOME}/.config/herdr/local-plugins/notification-picker"

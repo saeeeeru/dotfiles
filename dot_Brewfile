@@ -20,6 +20,7 @@ brew "eza"
 brew "jq"
 cask "aquaproj/aqua/aqua"
 brew "FelixKratz/formulae/borders"
+brew "laishulu/homebrew/macism"
 
 # Development
 brew "git"
