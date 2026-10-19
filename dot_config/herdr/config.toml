@@ -21,7 +21,7 @@ rows = [["state_icon", "agent"]]
 row_gap = 0
 
 [ui.sidebar.agents.rows_by_agent]
-claude = [["state_icon", "agent"], ["terminal_title"]]
+claude = [["state_icon", "agent", "$model"], ["terminal_title"]]
 codex = [["state_icon", "agent"], ["terminal_title"]]
 
 [ui.sidebar.spaces]
