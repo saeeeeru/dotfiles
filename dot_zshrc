@@ -113,7 +113,6 @@ source $ZSH/oh-my-zsh.sh
 alias c='claude --enable-auto-mode'
 alias ca='claude agents'
 alias cc='claude -c'  # Continue last conversation
-alias cr='claude -r --enable-auto-mode'  # Resume recent conversation
 alias ch='claude --chrome'
 alias cy='claude --dangerously-skip-permissions'  # YOLO mode - use with caution!
 alias cry='claude -r --dangerously-skip-permissions'  # Resume + YOLO mode
@@ -197,6 +196,85 @@ worktree_cd() {
   [[ -n "$target" ]] && cd "$target"
 }
 alias wcd='worktree_cd'
+
+# Lists Claude Code sessions across all projects, newest first:
+# id<TAB>dir<TAB>label. dir is the last cwd whose sanitized path matches the
+# project folder, since `claude -r <id>` only finds sessions of that folder.
+_claude_session_list() {
+  local f
+  local -a files mtime
+
+  files=(~/.claude/projects/*/*.jsonl(N.om[1,${CLAUDE_RESUME_ANY_LIMIT:-300}]))
+  (( ${#files[@]} )) || return 0
+
+  zmodload -F zsh/stat b:zstat
+  {
+    for f in "${files[@]}"; do
+      zstat -A mtime -F '%m-%d %H:%M' +mtime -- "$f"
+      print -r -- "F"$'\t'"$f"$'\t'"${mtime[1]}"
+    done
+    rg -o -H --no-line-number --no-heading --field-match-separator=$'\t' \
+      '"(cwd|aiTitle|customTitle|lastPrompt)":"(?:[^"\\]|\\.){0,200}"?' -- "${files[@]}"
+  } | LC_ALL=C uniq | LC_ALL=C awk -v home="$HOME" '
+    BEGIN { FS = "\t" }
+    $1 == "F" { order[++n] = $2; mtime[$2] = $3; next }
+    {
+      path = $1
+      m = substr($0, length(path) + 2)
+      sub(/"$/, "", m)
+      if (substr(m, 1, 7) == "\"cwd\":\"") {
+        val = substr(m, 8)
+        if (val == last[path, "cwd"]) next
+        last[path, "cwd"] = val
+        project = path; sub(/\/[^\/]*$/, "", project); sub(/.*\//, "", project)
+        sanitized = val; gsub(/[^A-Za-z0-9]/, "-", sanitized)
+        if (sanitized == project) root[path] = val
+        next
+      }
+      key = m; sub(/^"/, "", key); sub(/".*/, "", key)
+      last[path, key] = substr(m, length(key) + 5)
+    }
+    END {
+      for (i = 1; i <= n; i++) {
+        p = order[i]
+        dir = (p in root) ? root[p] : last[p, "cwd"]
+        if (dir == "") continue
+        title = last[p, "customTitle"]
+        if (title == "") title = last[p, "aiTitle"]
+        if (title == "") title = last[p, "lastPrompt"]
+        if (title == "") title = "(no title)"
+        gsub(/\\[nt]/, " ", title); gsub(/\\"/, "\"", title); gsub(/\\\\/, "\\", title)
+        id = p; sub(/.*\//, "", id); sub(/\.jsonl$/, "", id)
+        loc = dir; sub("^" home "/ghq/[^/]+/", "", loc); sub("^" home, "~", loc)
+        printf "%s\t%s\t%s  %s  %s\n", id, dir, mtime[p], loc, title
+      }
+    }
+  '
+}
+
+# Resumes a Claude Code session from any project, including one that moved
+# into a worktree mid-session. Arguments become the initial fzf query.
+claude_resume_any() {
+  local selected id dir
+
+  if ! command -v fzf >/dev/null 2>&1; then
+    echo "fzf is required" >&2
+    return 1
+  fi
+
+  selected=$(_claude_session_list | fzf --prompt='claude session > ' \
+    --delimiter=$'\t' --with-nth=3 --no-sort --query="$*") || return 1
+
+  id=${selected%%$'\t'*}
+  dir=${${selected#*$'\t'}%%$'\t'*}
+  if [[ ! -d "$dir" ]]; then
+    echo "Directory no longer exists: $dir" >&2
+    return 1
+  fi
+
+  cd "$dir" && claude -r "$id" --enable-auto-mode
+}
+alias cr='claude_resume_any'  # Resume a conversation from any project
 
 # XDG Base Directory
 export XDG_CONFIG_HOME="$HOME/.config"
