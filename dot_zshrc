@@ -235,6 +235,7 @@ _claude_session_list() {
       last[path, key] = substr(m, length(key) + 5)
     }
     END {
+      width = 0
       for (i = 1; i <= n; i++) {
         p = order[i]
         dir = (p in root) ? root[p] : last[p, "cwd"]
@@ -245,9 +246,13 @@ _claude_session_list() {
         if (title == "") title = "(no title)"
         gsub(/\\[nt]/, " ", title); gsub(/\\"/, "\"", title); gsub(/\\\\/, "\\", title)
         id = p; sub(/.*\//, "", id); sub(/\.jsonl$/, "", id)
-        loc = dir; sub("^" home "/ghq/[^/]+/", "", loc); sub("^" home, "~", loc)
-        printf "%s\t%s\t%s  %s  %s\n", id, dir, mtime[p], loc, title
+        loc = dir; sub("^" home "/ghq/[^/]+/[^/]+/", "", loc); sub("^" home, "~", loc)
+        sub(/\/(\.claude\/)?\.?worktrees\//, ":", loc)
+        if (length(loc) > 48) loc = substr(loc, 1, 47) "~"
+        if (length(loc) > width) width = length(loc)
+        rows[++m] = id "\t" dir "\t" mtime[p]; locs[m] = loc; titles[m] = title
       }
+      for (i = 1; i <= m; i++) printf "%s  %-*s  %s\n", rows[i], width, locs[i], titles[i]
     }
   '
 }
@@ -263,7 +268,7 @@ claude_resume_any() {
   fi
 
   selected=$(_claude_session_list | fzf --prompt='claude session > ' \
-    --delimiter=$'\t' --with-nth=3 --no-sort --query="$*") || return 1
+    --layout=reverse --delimiter=$'\t' --with-nth=3 --no-sort --query="$*") || return 1
 
   id=${selected%%$'\t'*}
   dir=${${selected#*$'\t'}%%$'\t'*}
