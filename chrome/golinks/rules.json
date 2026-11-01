@@ -1,0 +1,274 @@
+[
+  {
+    "id": 1,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://x.com/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://go/twitter/?$",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://x.com/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://(?:www\\.)?google\\.(?:com|co\\.jp)/search\\?(?:[^#]*&)?q=(?:go%2[Ff]|go/)twitter(?:%2[Ff]|/)?(?:$|&|#)",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://x.com/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://go/x/?$",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://x.com/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://(?:www\\.)?google\\.(?:com|co\\.jp)/search\\?(?:[^#]*&)?q=(?:go%2[Ff]|go/)x(?:%2[Ff]|/)?(?:$|&|#)",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://mail.google.com/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://go/gmail/?$",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://mail.google.com/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://(?:www\\.)?google\\.(?:com|co\\.jp)/search\\?(?:[^#]*&)?q=(?:go%2[Ff]|go/)gmail(?:%2[Ff]|/)?(?:$|&|#)",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://www.facebook.com/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://go/facebook/?$",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://www.facebook.com/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://(?:www\\.)?google\\.(?:com|co\\.jp)/search\\?(?:[^#]*&)?q=(?:go%2[Ff]|go/)facebook(?:%2[Ff]|/)?(?:$|&|#)",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://www.amazon.co.jp/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://go/amazon/?$",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 10,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://www.amazon.co.jp/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://(?:www\\.)?google\\.(?:com|co\\.jp)/search\\?(?:[^#]*&)?q=(?:go%2[Ff]|go/)amazon(?:%2[Ff]|/)?(?:$|&|#)",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 11,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://sizu.me/saeeeeru"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://go/sizu/?$",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 12,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://sizu.me/saeeeeru"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://(?:www\\.)?google\\.(?:com|co\\.jp)/search\\?(?:[^#]*&)?q=(?:go%2[Ff]|go/)sizu(?:%2[Ff]|/)?(?:$|&|#)",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 13,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://note.com/deepfoot"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://go/note/?$",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 14,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://note.com/deepfoot"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://(?:www\\.)?google\\.(?:com|co\\.jp)/search\\?(?:[^#]*&)?q=(?:go%2[Ff]|go/)note(?:%2[Ff]|/)?(?:$|&|#)",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 15,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/index.html"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://go/?$",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 16,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/index.html"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://(?:www\\.)?google\\.(?:com|co\\.jp)/search\\?(?:[^#]*&)?q=(?:go%2[Ff]|go/)(?:$|&|#)",
+      "isUrlFilterCaseSensitive": true,
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  }
+]
