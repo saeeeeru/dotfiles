@@ -1,0 +1,105 @@
+#!/bin/sh
+# Installs mosh and moshi-hook only when this machine is marked personal.
+# chezmoi renders the two assignments below from $DOTFILES_PROFILE, or from
+# ~/.config/dotfiles/profile when that variable is unset. Any value other
+# than personal is rendered as work and exits before Homebrew or agent
+# configs are touched. Hostname is not a fallback: a missing marker stays
+# on the work path even when LocalHostName is MacBook-Air-5.
+set -eu
+
+# Rendered profile. Only "personal" or "work".
+profile={{- $profile := "work" -}}
+{{- if $override := env "DOTFILES_PROFILE" | trim -}}
+{{-   $profile = $override -}}
+{{- else -}}
+{{-   $profilePath := joinPath .chezmoi.homeDir ".config/dotfiles/profile" -}}
+{{-   if stat $profilePath -}}
+{{-     $profile = include $profilePath | trim -}}
+{{-   end -}}
+{{- end -}}
+{{- if ne $profile "personal" -}}
+{{-   $profile = "work" -}}
+{{- end -}}
+{{ $profile | quote }}
+source_dir={{ .chezmoi.sourceDir | quote }}
+
+if [ "${profile}" != "personal" ]; then
+  exit 0
+fi
+
+if [ "$(uname -s)" != "Darwin" ]; then
+  echo "moshi: personal profile is set, but mosh and moshi-hook are installed on macOS only; skipping." >&2
+  exit 0
+fi
+
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "moshi: Homebrew is required to install mosh and moshi-hook." >&2
+  exit 1
+fi
+
+# moshi-hook install rewrites agent config in the home directory. Those
+# files are not in this repo. Refuse the usual chezmoi source names, and
+# refuse symlinks, so a personal install cannot be committed or detached
+# from a managed file (moshi-hook replaces symlinks with regular files).
+for rel in \
+  dot_claude/settings.json \
+  dot_claude/settings.json.tmpl \
+  private_dot_claude/settings.json \
+  private_dot_claude/settings.json.tmpl \
+  dot_cursor/hooks.json \
+  dot_cursor/hooks.json.tmpl \
+  private_dot_cursor/hooks.json \
+  private_dot_cursor/hooks.json.tmpl \
+  dot_codex/hooks.json \
+  dot_codex/hooks.json.tmpl \
+  private_dot_codex/hooks.json \
+  private_dot_codex/hooks.json.tmpl \
+  dot_codex/config.toml \
+  dot_codex/config.toml.tmpl \
+  private_dot_codex/config.toml \
+  private_dot_codex/config.toml.tmpl
+do
+  if [ -e "${source_dir}/${rel}" ]; then
+    echo "moshi: ${source_dir}/${rel} is tracked. Refusing to install hooks into a file chezmoi would copy to other machines." >&2
+    exit 1
+  fi
+done
+
+for target in \
+  "${HOME}/.claude/settings.json" \
+  "${HOME}/.cursor/hooks.json" \
+  "${HOME}/.codex/hooks.json" \
+  "${HOME}/.codex/config.toml"
+do
+  if [ -L "${target}" ]; then
+    echo "moshi: ${target} is a symlink. Refusing to let moshi-hook replace a managed file." >&2
+    exit 1
+  fi
+done
+
+echo "moshi: installing mosh and moshi-hook"
+brew tap rjyo/moshi
+# Homebrew 6+ refuses third-party taps until they are trusted. Older
+# Homebrew has no trust command; tapping is enough there.
+if brew help trust >/dev/null 2>&1; then
+  brew trust rjyo/moshi
+fi
+brew install moshi-hook
+brew install mosh
+
+# Pairing needs a phone token and stays manual. install only writes
+# Moshi-owned hook entries into agent configs under $HOME. It also
+# rewrites ~/.codex/config.toml and can drop codex_hooks; put back the
+# flag the shared Codex script maintains. That file is not tracked.
+MOSHI_HOOK_SKIP_FIRST_RUN=1 moshi-hook install </dev/null
+if [ -f "${HOME}/.codex/config.toml" ]; then
+  sh "${source_dir}/run_onchange_after_20_enable-codex-hooks.sh"
+fi
+
+brew services start moshi-hook

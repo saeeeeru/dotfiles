@@ -1,4 +1,8 @@
 # Homebrew Bundle - https://github.com/Homebrew/homebrew-bundle
+#
+# mosh, moshi-hook, and the rjyo/moshi tap are personal-Mac only.
+# Do not add them here: `brew bundle --global` also runs on the work laptop.
+# See README "Moshi（個人 Mac のみ）".
 
 # Taps
 tap "aquaproj/aqua"
