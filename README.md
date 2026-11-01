@@ -81,6 +81,66 @@ aerospace reload-config
 
 手動で再適用するときは `ctrl+alt+cmd+d`。初回は Hammerspoon を起動し、ログイン時に起動されることを確認する。
 
+## Go Links（Chrome）
+
+アドレスバーの `go/twitter` を登録先へ飛ばす Manifest V3 拡張。実体は `chrome/golinks/`。chezmoi の source（`~/ghq/github.com/saeeeeru/dotfiles`）に置いたまま、Chrome の「パッケージ化されていない拡張機能」として読み込む。
+
+`.chezmoiignore` に `chrome` があるので、`chezmoi apply` は `~/chrome` を作らない。ホームへコピーすると、編集のたびに apply と拡張の再読み込みが両方必要になり、読み込み元が二重になる。source の場所は `~/ghq/github.com/saeeeeru/dotfiles` に固定している。
+
+### インストール（初回だけ）
+
+1. Chrome で `chrome://extensions` を開く
+2. 「デベロッパーモード」をオンにする
+3. 「パッケージ化されていない拡張機能を読み込む」で次のフォルダを選ぶ
+
+```
+~/ghq/github.com/saeeeeru/dotfiles/chrome/golinks
+```
+
+### 使い方
+
+`go/twitter` と入力して Enter。`go/` だけなら一覧が出る。
+
+Chrome は `go/twitter` を URL ではなく検索にすることが多い。拡張は次の両方を拾う。
+
+- `http://go/<名前>` と `https://go/<名前>`（末尾の `/` も可）
+- Google 検索に落ちた `https://www.google.com/search?q=go%2F<名前>` と `q=go/<名前>`（`google.co.jp` も同じ。`q` が先頭でなくてもよい）
+
+検索結果のままなら、一度 `go/twitter/`（末尾スラッシュ）か `http://go/twitter` と入れる。Chrome が `go` をホストとして覚えると、次から URL として開く。
+
+拾う検索は Google の `google.com` と `google.co.jp` で、クエリ全体が `go/<名前>` か `go/<名前>/` のときだけ。`go/twitter login` のような続きがある検索や、別の検索エンジン、`google.de` のような未登録の国別ドメインはそのまま検索になる。国別ドメインを足すときは `rules.json` の正規表現と `manifest.json` の `host_permissions` の両方に足す。
+
+`go` という単語や、登録していない `go/parser` のような検索は飛ばさない。
+
+### リンクを足す
+
+編集するのは `chrome/golinks/rules.json` だけ。一覧ページはそのファイルから名前を読む。
+
+その名前のルールは2つある。直アクセス用（`^https?://go/twitter/?$`）と、Google 検索用（`q=(?:go%2[Ff]|go/)twitter` を含むもの）。この2つをコピーして、次を変える。
+
+- `id`: 他と被らない正の整数
+- 正規表現の中の名前（各ルールに1箇所）
+- `redirect.url`
+
+名前は英小文字・数字・ハイフン。`go/twitter` と `go/Twitter` は別物として扱われる。`priority` は `2` のままにする。末尾付近の `extensionPath` ルールは `go/` の一覧用なのでコピーしない。
+
+行き先は `redirect.url` で URL 全体を置き換える。`regexSubstitution` は一致した部分だけを差し替えるので、Google の `&sourceid=chrome&ie=UTF-8` が行き先の末尾に残る。
+
+編集したあとは `chrome://extensions` でこの拡張の再読み込みを押す。`chezmoi apply` やビルドは不要。JSON が壊れているとルールごと読み込まれない。
+
+確認用に `python3 chrome/golinks/check.py` がある。標準ライブラリだけで、サンプル URL が期待する行き先に解決されるかを見る。拡張の動作には不要。
+
+初期のリンク:
+
+| 名前 | 行き先 |
+| --- | --- |
+| `twitter`, `x` | https://x.com/ |
+| `gmail` | https://mail.google.com/ |
+| `facebook` | https://www.facebook.com/ |
+| `amazon` | https://www.amazon.co.jp/ |
+| `sizu` | https://sizu.me/saeeeeru |
+| `note` | https://note.com/deepfoot |
+
 ## Contents
 
 - `dot_Brewfile` → `~/.Brewfile`
@@ -94,6 +154,7 @@ aerospace reload-config
 - `dot_config/nvim/` → `~/.config/nvim/`
 - `dot_config/tmux/` → `~/.config/tmux/`
 - `run_onchange_after_*.sh` は `chezmoi apply` 時に、内容が変わったときだけ走る（tpm、Codex hooks、Herdr / plugin / agent integration のインストール）
+- `chrome/golinks/` は Chrome の go/ 拡張。`.chezmoiignore` 対象で、ホームにはコピーしない
 
 Aerospace、JankyBorders、Ghostty、tmux の設定もこのリポジトリで管理している。
 

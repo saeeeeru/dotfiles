@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Go Links",
+  "version": "1.0.0",
+  "description": "アドレスバーの go/名前 を、登録した URL へ飛ばす。",
+  "permissions": ["declarativeNetRequestWithHostAccess"],
+  "host_permissions": [
+    "*://go/*",
+    "*://google.com/*",
+    "*://*.google.com/*",
+    "*://google.co.jp/*",
+    "*://*.google.co.jp/*"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "golinks",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["index.html"],
+      "matches": [
+        "*://go/*",
+        "*://google.com/*",
+        "*://*.google.com/*",
+        "*://google.co.jp/*",
+        "*://*.google.co.jp/*"
+      ]
+    }
+  ]
+}
