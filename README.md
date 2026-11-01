@@ -25,6 +25,8 @@ chezmoi apply
 
 以降は `~/.Brewfile` が置かれるので `brew bundle --global` でよい。
 
+会社の Mac はここまで。Moshi は入れない。個人 Mac だけ、下の「Moshi（個人 Mac のみ）」にあるマーカーを書いてから、もう一度 `chezmoi apply` する。
+
 ## Daily usage
 
 ```bash
@@ -93,7 +95,7 @@ aerospace reload-config
 - `dot_config/lazygit/` → `~/.config/lazygit/`
 - `dot_config/nvim/` → `~/.config/nvim/`
 - `dot_config/tmux/` → `~/.config/tmux/`
-- `run_onchange_after_*.sh` は `chezmoi apply` 時に、内容が変わったときだけ走る（tpm、Codex hooks、Herdr / plugin / agent integration のインストール）
+- `run_onchange_after_*.sh` は `chezmoi apply` 時に、内容が変わったときだけ走る（tpm、Codex hooks、Herdr / plugin / agent integration のインストール）。`run_onchange_after_40_install-moshi.sh.tmpl` は個人 Mac のマーカーがあるときだけ mosh と moshi-hook を入れる
 
 Aerospace、JankyBorders、Ghostty、tmux の設定もこのリポジトリで管理している。
 
@@ -129,3 +131,85 @@ herdr plugin action invoke open --plugin persiyanov.reviewr
 Or press `prefix`, then `d` to toggle it. The plugin is pinned to v0.44.0 and also opens automatically when Herdr creates or opens a worktree. It reviews the worktree of the focused pane's working directory, so have Claude Code enter a worktree with its EnterWorktree tool rather than `cd` into one from a shell command.
 
 The review pane can show the worktree diff, browse/search files, and send line comments to the selected active agent. The official Herdr integrations also let it resume supported Claude Code, Codex, and Cursor Agent CLI sessions after a Herdr server restart (`cursor-agent --resume <session-id>`; `cursor-agent` must be on `PATH`). Herdr plugins are community code; inspect the plugin source before installing or updating them.
+
+## Moshi（個人 Mac のみ）
+
+[Moshi](https://getmoshi.app) は iOS の SSH / Mosh ターミナルで、`moshi-hook` がエージェントの通知を電話に送る。個人 Mac だけに入れる。会社の Mac では、マーカーが無い限り tap も formula もサービスも agent hook も入れない。
+
+ホスト名では切り分けない。`MacBook-Air-5` は変わり得るし、マーカーが無いマシンは必ず work（何もしない）にする。
+
+### 個人 Mac で有効にする
+
+マーカーは chezmoi の管理外で、このリポジトリには入らない。`chezmoi add` しない。
+
+```bash
+mkdir -p ~/.config/dotfiles
+printf '%s\n' personal > ~/.config/dotfiles/profile
+chezmoi apply
+```
+
+ファイルの中身は `personal` の 1 行だけ。それ以外（空、`work`、未知の値）は work になる。
+
+その apply で Moshi 用スクリプトが実行するのは次だけ。
+
+```bash
+brew tap rjyo/moshi
+brew trust rjyo/moshi   # Homebrew 6 以降。古い Homebrew には trust が無いので飛ばす
+brew install moshi-hook
+brew install mosh
+MOSHI_HOOK_SKIP_FIRST_RUN=1 moshi-hook install
+# ~/.codex/config.toml があるときだけ、codex_hooks = true を戻す
+brew services start moshi-hook
+```
+
+`moshi-hook install` はペアリングトークンなしで、ホーム配下のエージェント設定に Moshi の hook を書く。対象には `~/.claude/settings.json` と `~/.cursor/hooks.json` が含まれる。入っているエージェントだけを書き、無いものは飛ばす。これらはこのリポジトリに無く、`chezmoi apply` も git status も汚さない。`moshi-hook install` のあとにこれらを `chezmoi add` しない。追加すると個人 Mac の hook が会社の Mac に配られる。スクリプトは、これらのファイルが source にある、またはホーム側がシンボリックリンクなら、インストールを止める。
+
+`moshi-hook install` は未管理の `~/.codex/config.toml` も書き換え、`codex_hooks` を落とすことがある。個人 Mac ではその直後に、共有スクリプトと同じ処理でもう一度 `codex_hooks = true` を入れる。会社の Mac ではこのファイルに触らない。
+
+一度 work として apply したあとにマーカーを置いた場合も、次の `chezmoi apply` で再実行される。プロファイルの値がスクリプトの展開結果に入るため。
+
+マーカーを消すか `work` にすると、以降の apply は Moshi を入れない。すでに入っている formula や hook は消さない。外すときは個人 Mac で `moshi-hook uninstall` してから `brew uninstall moshi-hook mosh` する。
+
+一時的に上書きするとき:
+
+```bash
+DOTFILES_PROFILE=personal chezmoi apply   # マーカーが無くても個人向け処理を走らせる
+DOTFILES_PROFILE=work chezmoi apply       # マーカーがあっても何もしない
+```
+
+Tailscale は自動では入れない。LAN の外から繋ぐときだけ、macOS アプリを入れる（App Store か `brew install --cask tailscale`）。formula の `brew install tailscale` は macOS の通常の入れ方ではないので使わない。
+
+### 手作業（電話がいる。トークンはリポジトリに置かない）
+
+1. システム設定 → 一般 → 共有 → リモートログイン をオンにする。
+2. Tailscale を使うなら、ログインしたあとにホストで次を実行する。Tailscale SSH はポート 22 を横取りし、Moshi の鍵認証と mosh の起動を壊す。
+
+   ```bash
+   sudo tailscale set --ssh=false
+   ```
+
+3. ペアリングはどちらか。トークンは Moshi の Settings → Hooks に出る。コマンドやファイルに残してコミットしない。
+
+   ```bash
+   moshi-hook pair --token <token>
+   ```
+
+   または QR の Easy Pair:
+
+   ```bash
+   moshi-hook host setup
+   ```
+
+4. 確認する。
+
+   ```bash
+   moshi-hook doctor
+   ```
+
+   Codex 0.157 以降は共有バックグラウンドサーバの停止を聞いてくることがある。`chezmoi apply` は stdin を閉じた非対話の `moshi-hook install` なので、その確認は出さない。止めるなら、あとから `moshi-hook doctor --yes` を実行する。実行中の Codex セッションは切れる。
+
+非対話の SSH は `~/.zshrc` を読まない。`mosh-server` が見つからないときは、Homebrew のインストーラが `~/.zprofile` に足す次の行が残っているか確認する。
+
+```bash
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
