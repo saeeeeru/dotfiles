@@ -22,13 +22,15 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Autocmds for markdown files
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown",
-	callback = function()
+	callback = function(args)
 		-- Enable mouse support for markdown files
 		vim.opt_local.mouse = "a"
 
 		-- Optional: set wrap for better reading experience
 		vim.opt_local.wrap = true
 		vim.opt_local.linebreak = true
+
+		require("config.markdown-table").attach(args.buf)
 	end,
 	desc = "Markdown file settings",
 })
